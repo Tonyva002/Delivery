@@ -1,43 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { HomeScreen } from './src/views/login/Login';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Image
-      source={require('./assets/chef.jpg')}
-      style={styles.imageBackground} />
-
-      <View style={styles.form} >
-
-        </View>
-      
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={
+        {
+          headerShown: false
+        }
+      }>
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+         
+        />
+      { /* <Stack.Screen name="Profile" component={ProfileScreen} />*/}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
- 
-  },
-
-  imageBackground: {
-    width: '100%',
-    height: '100%',
-    opacity: 0.7,
-    bottom: '30%'
-  },
-
-  form: {
-    width: '100%',
-    height: '40%',
-    backgroundColor: 'white', 
-    position: 'absolute',
-    bottom: 0,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40
-    
-  }
-});
+};
+export default App;
