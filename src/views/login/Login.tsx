@@ -1,44 +1,66 @@
-import React from 'react'
-import { Image, StyleSheet, Text, TextInput, ToastAndroid, View } from 'react-native';
-import { RoundedButton } from '../../components/RoundedButton';
+import React, {useState} from 'react'
+import { Image, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native';
+import { RoundedButton } from '../../Presentation/components/RoundedButton';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp} from '@react-navigation/stack'
+import { RootStackParamList } from '../../../App';
 
-export const HomeScreen = () => {
+
+export const LoginScreen = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../../assets/chef.jpg')}
+                source={require('../../../../assets/chef.jpg')}
                 style={styles.imageBackground} />
 
             <View style={styles.logoContainer}>
-                <Image style={styles.logoImage} source={require('../../../assets/logo.png')} />
+                <Image style={styles.logoImage} source={require('../../../../assets/logo.png')} />
                 <Text style={styles.logoText}>FOOD</Text>
             </View>
 
             <View style={styles.form} >
-                <Text style={styles.formTitle}>INGRESAR</Text>
+                <Text style={styles.formTitle}>LOGIN</Text>
 
                 <View style={styles.formInput}>
-                    <Image style={styles.formIcon} source={require('../../../assets/user.png')} />
+                    <Image style={styles.formIcon} source={require('../../../../assets/email.png')} />
                     <TextInput style={styles.formTextInput}
                         placeholder='Email'
-                        keyboardType='email-address' />
+                        keyboardType='email-address' 
+                        value={email}
+                        onChangeText={text => setEmail(text)}/>
                 </View>
 
                 <View style={styles.formInput}>
-                    <Image style={styles.formIcon} source={require('../../../assets/password.png')} />
+                    <Image style={styles.formIcon} source={require('../../../../assets/password.png')} />
                     <TextInput style={styles.formTextInput}
                         placeholder='Password'
                         keyboardType='default'
-                        secureTextEntry={true} />
+                        secureTextEntry={true}
+                        value={password}
+                        onChangeText={text => setPassword(text)}/>
                 </View>
 
                 <View style={{ marginTop: 30 }}>
-                    <RoundedButton text='ENTRAR' onPress={() => ToastAndroid.show('Hola', ToastAndroid.SHORT)} />
+                    <RoundedButton text='LOGIN' onPress={() => {
+                        console.log('Email: ' + email);
+                        console.log('password: ' + password);
+
+                    }} />
                 </View>
 
                 <View style={styles.formRegister}>
-                    <Text>No tienes cuenta?</Text>
-                    <Text style={styles.formRegisterText}>Registrate</Text>
+                    <Text>Don't have an account?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                    <Text style={styles.formRegisterText}>Register</Text>
+                    </TouchableOpacity>
+                   
 
                 </View>
 
